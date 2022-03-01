@@ -17,7 +17,7 @@ let playerOne = "";
 let playerTwo = "";
 let playerOneWins =  0;
 let playerTwoWins = 0;
-let difficulty = "easy";
+let difficulty = "default";
 let difficultyChoice = "";
 let rockCount = 0;
 let paperCount = 0;
@@ -44,13 +44,34 @@ function playRound(playerOne, playerTwo) {
     // Determine if computer is rock, paper, or scissors
     function computerPlay () {
         let computerInput = (Math.random()*100);
-        if (computerInput > 66) {
-            computerInput = "rock";
-            return computerInput;
-    }   else if (computerInput > 33){
+        
+        // check if player tends to pick rock
+        if (rockCount > paperCount && rockCount > scissorsCount) {
             computerInput = "paper";
             return computerInput;
-    }   else {
+        }
+
+        // check if player tends to pick paper
+        else if (paperCount > rockCount && paperCount > scissorsCount) {
+            computerInput = "scissors";
+            return computerInput;
+        }
+
+        // check if player tends to pick scissors
+        else if (scissorsCount > rockCount && scissorsCount > paperCount) {
+            computerInput = "rock";
+            return computerInput;
+                }
+
+        else if (computerInput > 66) {
+            computerInput = "rock";
+            return computerInput;
+    }   
+        else if (computerInput > 33){
+            computerInput = "paper";
+            return computerInput;
+    }   
+        else {
             computerInput = "scissors";
             return computerInput;
     };
@@ -106,20 +127,24 @@ function playRound(playerOne, playerTwo) {
 
 function playGame () {
     let rounds = window.prompt("How many rounds would you like to play? Pick a number between 1 and 10.");
+    
     while (isNaN(rounds) || rounds > 10 || rounds < 1){
         rounds = window.prompt("Please enter a number between 1 and 10.");
     }
+    
     difficultyChoice = window.prompt("Interested in hard mode? Enter Y/N");
-    if (difficultyChoice.toLowerCase = "y"){
-        alert.log(difficultyChoice);
+    alert("You selected: " + difficultyChoice);
+    if (difficultyChoice.toLowerCase() == "y"){
+        alert(difficultyChoice);
         difficulty = "hard";
         alert("You chose: " + difficulty);
-    } else if (difficultyChoice.toLowerCase != "y") {
+    } else if (difficultyChoice.toLowerCase() != "y") {
         difficulty = "easy";
-        alert("You chose: (easy)" + difficulty);
+        alert("You chose: " + difficulty);
     } else {
         alert("else")
     }
+    
     for (i = 0; i < rounds; i++) {
         let counter = i + 1;
         console.log("Round " + counter);
